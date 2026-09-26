@@ -39,6 +39,8 @@ processResources {
     inputs.property "group", rootProject.maven_group
     inputs.property "id", rootProject.archives_base_name
 
+    from(rootProject.file("LICENSE"))
+
     filesMatching("quilt.mod.json") {
         expand "version": rootProject.version,
                 "group": rootProject.maven_group,

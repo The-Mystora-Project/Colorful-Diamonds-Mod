@@ -12,7 +12,7 @@
     "sources": "https://github.com/Mystery2099/Colorful-Diamonds-Mod",
     "issues": "https://github.com/Mystery2099/Colorful-Diamonds-Mod/issues"
   },
-  "license": "All Rights Reserved",
+  "license": "MIT",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
