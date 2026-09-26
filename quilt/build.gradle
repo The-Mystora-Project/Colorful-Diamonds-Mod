@@ -1,91 +1,43 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'org.quiltmc.loom' version '1.2.+'
+    id 'maven-publish'
 }
 
-repositories {
-    maven { url "https://maven.quiltmc.org/repository/release/" }
-}
-
-architectury {
-    platformSetupLoomIde()
-    loader("quilt")
-}
-
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentQuilt.extendsFrom common
-
-}
+base.archivesName = rootProject.archives_base_name + '-quilt'
 
 dependencies {
-    modApi "org.quiltmc:quilt-loader:${rootProject.quilt_loader_version}"
-    modApi "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${rootProject.quilt_fabric_api_version}"
-    // Remove the next few lines if you don't want to depend on the API
-    modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") {
-        // We must not pull Fabric Loader from Architectury Fabric
-        exclude group: "net.fabricmc"
-        exclude group: "net.fabricmc.fabric-api"
-    }
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionQuilt")) { transitive false }
+    minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "org.quiltmc:quilt-loader:${rootProject.quilt_loader_version}"
+    modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${rootProject.quilt_fabric_api_version}"
 }
+
+sourceSets.main.java.srcDir(rootProject.file('common/src/main/java'))
+sourceSets.main.resources.srcDir(rootProject.file('common/src/main/resources'))
 
 processResources {
-    inputs.property "version", rootProject.version
-    inputs.property "group", rootProject.maven_group
-    inputs.property "id", rootProject.archives_base_name
-
-    from(rootProject.file("LICENSE"))
-
-    filesMatching("quilt.mod.json") {
-        expand "version": rootProject.version,
-                "group": rootProject.maven_group,
-                "id": rootProject.archives_base_name
+    inputs.property 'version', project.version
+    inputs.property 'group', project.group
+    inputs.property 'id', rootProject.archives_base_name
+    filesMatching('quilt.mod.json') {
+        expand version: project.version, group: project.group, id: rootProject.archives_base_name
     }
-}
-
-shadowJar {
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier.set("dev-shadow")
-}
-
-remapJar {
-    inputFile.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier.set(null)
 }
 
 jar {
-    archiveClassifier.set("dev")
-    archivesBaseName = "[quilt]" + archivesBaseName
+    from(sourceSets.main.output)
+    from(rootProject.file('LICENSE'))
 }
 
 sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
+    from(sourceSets.main.allSource)
+    from(rootProject.file('LICENSE'))
 }
 
 publishing {
     publications {
         mavenQuilt(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
             from components.java
         }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
     }
 }

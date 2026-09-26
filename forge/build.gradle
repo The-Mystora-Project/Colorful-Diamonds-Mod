@@ -1,81 +1,42 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
-}
-architectury {
-    platformSetupLoomIde()
-    forge()
-
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'maven-publish'
 }
 
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
+base.archivesName = rootProject.archives_base_name + '-forge'
 
+minecraft {
+    mappings channel: 'official', version: rootProject.minecraft_version
+    copyIdeResources = true
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    minecraft "net.minecraftforge:forge:${rootProject.forge_version}"
 }
+
+sourceSets.main.java.srcDir(rootProject.file('common/src/main/java'))
+sourceSets.main.resources.srcDir(rootProject.file('common/src/main/resources'))
 
 processResources {
-    inputs.property "version", project.version
-
-    from(rootProject.file("LICENSE"))
-
-    filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
+    inputs.property 'version', project.version
+    filesMatching('META-INF/mods.toml') {
+        expand version: project.version
     }
-}
-
-shadowJar {
-    exclude "fabric.mod.json"
-    exclude("quilt.mod.json")
-
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier.set("dev-shadow")
-}
-
-remapJar {
-    inputFile.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier.set(null)
 }
 
 jar {
-    archiveClassifier.set("dev")
-    archivesBaseName = "[forge]" + archivesBaseName
+    from(rootProject.file('LICENSE'))
+    finalizedBy 'reobfJar'
 }
 
 sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
+    from(rootProject.file('LICENSE'))
 }
 
 publishing {
     publications {
         mavenForge(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
-            from components.java
+            artifact jar
         }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
     }
 }

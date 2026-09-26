@@ -34,12 +34,12 @@
         "version": "*"
       },
       {
-        "id": "minecraft",
-        "version": ">=1.19.4"
+        "id": "quilted_fabric_api",
+        "version": "*"
       },
       {
-        "id": "architectury",
-        "version": ">=8.1.73"
+        "id": "minecraft",
+        "version": ">=1.19.4"
       }
     ]
   },
