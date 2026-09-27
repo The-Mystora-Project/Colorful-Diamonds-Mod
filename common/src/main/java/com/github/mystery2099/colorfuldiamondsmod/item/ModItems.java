@@ -1,67 +1,61 @@
 package com.github.mystery2099.colorfuldiamondsmod.item;
 
-import com.github.mystery2099.colorfuldiamondsmod.ColorfulDiamondsMod;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.item.*;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import com.github.mystery2099.colorfuldiamondsmod.ModRegistrar;
+import net.minecraft.world.item.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class ModItems {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ColorfulDiamondsMod.MOD_ID, RegistryKeys.ITEM);
-    public static final List<RegistrySupplier<Item>> GEMS = new ArrayList<>();
-    public static final List<RegistrySupplier<Item>> TOOLS = new ArrayList<>();
-    public static final List<RegistrySupplier<Item>> WEAPONS = new ArrayList<>();
-    public static final List<RegistrySupplier<Item>> ARMOR = new ArrayList<>();
-    static {
+    public static final List<Supplier<Item>> GEMS = new ArrayList<>();
+    public static final List<Supplier<Item>> TOOLS = new ArrayList<>();
+    public static final List<Supplier<Item>> WEAPONS = new ArrayList<>();
+    public static final List<Supplier<Item>> ARMOR = new ArrayList<>();
+
+    public static void init(ModRegistrar registrar) {
         for (var color : DyeColor.values()) {
-            GEMS.add(gem(color));
+            GEMS.add(gem(registrar, color));
         }
         for (var material : ModToolMaterials.values()) {
-            registerToolSet(material);
+            registerToolSet(registrar, material);
         }
         for (var material : ModArmorMaterials.values()) {
-            ARMOR.addAll(registerArmorSet(material));
+            ARMOR.addAll(registerArmorSet(registrar, material));
         }
     }
 
-    private static RegistrySupplier<Item> gem(DyeColor color) {
-        return register(color.toString().toLowerCase() + "_diamond", () -> new Item(new Item.Settings().arch$tab(ColorfulDiamondsMod.DEFAULT_ITEM_GROUP)));
+    private static Supplier<Item> gem(ModRegistrar registrar, DyeColor color) {
+        return register(registrar, color.toString().toLowerCase() + "_diamond", () -> new Item(new Item.Properties()));
     }
 
-    private static List<RegistrySupplier<Item>> registerArmorSet(ArmorMaterial material) {
+    private static List<Supplier<Item>> registerArmorSet(ModRegistrar registrar, ArmorMaterial material) {
         var materialName = material.getName();
-        var settings = new Item.Settings().arch$tab(ColorfulDiamondsMod.COMBAT_ITEM_GROUP);
+        var settings = new Item.Properties();
         return List.of(
-            register(materialName+"_helmet", () -> new ArmorItem(material, ArmorItem.Type.HELMET, settings)),
-            register(materialName+"_chestplate", () -> new ArmorItem(material, ArmorItem.Type.CHESTPLATE, settings)),
-            register(materialName+"_leggings", () -> new ArmorItem(material, ArmorItem.Type.LEGGINGS, settings)),
-            register(materialName+"_boots", () -> new ArmorItem(material, ArmorItem.Type.BOOTS, settings))
+            register(registrar, materialName+"_helmet", () -> new ArmorItem(material, ArmorItem.Type.HELMET, settings)),
+            register(registrar, materialName+"_chestplate", () -> new ArmorItem(material, ArmorItem.Type.CHESTPLATE, settings)),
+            register(registrar, materialName+"_leggings", () -> new ArmorItem(material, ArmorItem.Type.LEGGINGS, settings)),
+            register(registrar, materialName+"_boots", () -> new ArmorItem(material, ArmorItem.Type.BOOTS, settings))
         );
     }
 
-    private static void registerToolSet(ToolMaterial material) {
+    private static void registerToolSet(ModRegistrar registrar, Tier material) {
         var materialName = material.toString().toLowerCase();
 
-        WEAPONS.add(register(materialName+"_sword", () -> new SwordItem(material, 3, -2.4F, new Item.Settings().arch$tab(ColorfulDiamondsMod.COMBAT_ITEM_GROUP))));
+        WEAPONS.add(register(registrar, materialName+"_sword", () -> new SwordItem(material, 3, -2.4F, new Item.Properties())));
 
-        var toolSettings = new Item.Settings().arch$tab(ColorfulDiamondsMod.TOOL_ITEM_GROUP);
+        var toolSettings = new Item.Properties();
         var tools = List.of(
-                register(materialName+"_shovel", () -> new ShovelItem(material, 1.5F, -3.0F, toolSettings)),
-                register(materialName+"_pickaxe", () -> new PickaxeItem(material, 1, -2.8F, toolSettings)),
-                register(materialName+"_axe", () -> new AxeItem(material, 5.0F, -3.0F, toolSettings)),
-                register(materialName+"_hoe", () -> new HoeItem(material, -3, 0.0F, toolSettings))
+                register(registrar, materialName+"_shovel", () -> new ShovelItem(material, 1.5F, -3.0F, toolSettings)),
+                register(registrar, materialName+"_pickaxe", () -> new PickaxeItem(material, 1, -2.8F, toolSettings) {}),
+                register(registrar, materialName+"_axe", () -> new AxeItem(material, 5.0F, -3.0F, toolSettings) {}),
+                register(registrar, materialName+"_hoe", () -> new HoeItem(material, -3, 0.0F, toolSettings) {})
         );
         TOOLS.addAll(tools);
     }
 
-
-    private static RegistrySupplier<Item> register(String id, Supplier<Item> item) {
-        return ITEMS.register(new Identifier(ColorfulDiamondsMod.MOD_ID, id), item);
+    private static Supplier<Item> register(ModRegistrar registrar, String id, Supplier<Item> item) {
+        return registrar.registerItem(id, item);
     }
 }

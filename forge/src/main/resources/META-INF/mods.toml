@@ -1,6 +1,6 @@
 modLoader = "javafml" #mandatory
 loaderVersion = "[43,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
-license = "All Rights Reserved"
+license = "MIT"
 issueTrackerURL = "https://github.com/Mystery2099/Colorful-Diamonds-Mod/issues"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
@@ -49,11 +49,4 @@ mandatory = true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange = "[1.19.4,1.20)"
 ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.colorfuldiamondsmod]]
-modId = "architectury"
-mandatory = true
-versionRange = "[8.1.73,)"
-ordering = "AFTER"
 side = "BOTH"

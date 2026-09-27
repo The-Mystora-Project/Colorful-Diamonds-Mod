@@ -6,6 +6,7 @@
     "version": "${version}",
     "metadata": {
       "name": "Colorful Diamonds Mod",
+      "license": "MIT",
       "description": "Dyed Diamonds is a mod that lets you color your diamonds with any of the 16 dyes in Minecraft.\nYou can craft blocks, armor, and tools with dyed diamonds.\nYou can use armor of different colors to assign specific uses, such as red for fire resistance, blue for exploration, orange for blast or you can just have armor of different colors to suit your personal style.\nUse new block colors as decorations in your builds.\nThe only limit is your own imagination!",
       "contributors": {
         "Mystery2099": "Owner"
@@ -33,12 +34,12 @@
         "version": "*"
       },
       {
-        "id": "minecraft",
-        "version": ">=1.19.4"
+        "id": "quilted_fabric_api",
+        "version": "*"
       },
       {
-        "id": "architectury",
-        "version": ">=8.1.73"
+        "id": "minecraft",
+        "version": ">=1.19.4"
       }
     ]
   },

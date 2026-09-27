@@ -12,7 +12,7 @@
     "sources": "https://github.com/Mystery2099/Colorful-Diamonds-Mod",
     "issues": "https://github.com/Mystery2099/Colorful-Diamonds-Mod/issues"
   },
-  "license": "All Rights Reserved",
+  "license": "MIT",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
@@ -24,8 +24,8 @@
   },
   "depends": {
     "fabricloader": ">=0.14.25",
-    "minecraft": ">=1.19.4",
-    "architectury": ">=8.1.73"
+    "fabric-api": "*",
+    "minecraft": ">=1.19.4"
   },
   "suggests": {},
   "custom": {},

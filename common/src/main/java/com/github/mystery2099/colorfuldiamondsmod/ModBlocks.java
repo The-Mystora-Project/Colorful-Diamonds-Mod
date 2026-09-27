@@ -1,34 +1,30 @@
 package com.github.mystery2099.colorfuldiamondsmod;
 
-import com.github.mystery2099.colorfuldiamondsmod.item.ModItems;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ColorfulDiamondsMod.MOD_ID, RegistryKeys.BLOCK);
+    public static final List<Supplier<Block>> DIAMOND_BLOCKS = new ArrayList<>();
+    public static final List<Supplier<Item>> DIAMOND_BLOCK_ITEMS = new ArrayList<>();
 
-    public static final List<RegistrySupplier<Block>> DIAMOND_BLOCKS = new ArrayList<>();
-    static {
+    public static void init(ModRegistrar registrar) {
         for (var color : DyeColor.values()) {
-            DIAMOND_BLOCKS.add(register(color));
+            register(registrar, color);
         }
     }
 
-    private static RegistrySupplier<Block> register(DyeColor color) {
-        var location = new Identifier(ColorfulDiamondsMod.MOD_ID, color.toString().toLowerCase() + "_diamond_block");
-        var block = BLOCKS.register(location, () -> new Block(AbstractBlock.Settings.of(Material.METAL, color).requiresTool()));
-        ModItems.ITEMS.register(location, () -> new BlockItem(block.get(), new Item.Settings().arch$tab(ColorfulDiamondsMod.DEFAULT_ITEM_GROUP)));
-        return block;
+    private static void register(ModRegistrar registrar, DyeColor color) {
+        var id = color.toString().toLowerCase() + "_diamond_block";
+        var block = registrar.registerBlock(id, () -> new Block(BlockBehaviour.Properties.of(Material.METAL, color).requiresCorrectToolForDrops()));
+        DIAMOND_BLOCKS.add(block);
+        DIAMOND_BLOCK_ITEMS.add(registrar.registerItem(id, () -> new BlockItem(block.get(), new Item.Properties())));
     }
 }
