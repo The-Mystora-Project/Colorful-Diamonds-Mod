@@ -25,12 +25,10 @@ processResources {
 }
 
 jar {
-    from(sourceSets.main.output)
     from(rootProject.file('LICENSE'))
 }
 
 sourcesJar {
-    from(sourceSets.main.allSource)
     from(rootProject.file('LICENSE'))
 }
 
