@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "yellow_diamond_horse_armor",
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "colorfuldiamondsmod:yellow_diamond"
+    }
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:yellow_diamond_horse_armor"
+  }
+}

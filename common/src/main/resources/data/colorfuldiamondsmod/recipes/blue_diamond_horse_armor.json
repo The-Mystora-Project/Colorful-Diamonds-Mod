@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "blue_diamond_horse_armor",
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "colorfuldiamondsmod:blue_diamond"
+    }
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:blue_diamond_horse_armor"
+  }
+}

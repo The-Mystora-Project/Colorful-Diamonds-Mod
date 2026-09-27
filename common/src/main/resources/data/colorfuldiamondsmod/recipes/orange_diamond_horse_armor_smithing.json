@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "tag": "colorfuldiamondsmod:diamond_horse_armors"
+  },
+  "addition": {
+    "item": "minecraft:orange_dye"
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:orange_diamond_horse_armor"
+  }
+}

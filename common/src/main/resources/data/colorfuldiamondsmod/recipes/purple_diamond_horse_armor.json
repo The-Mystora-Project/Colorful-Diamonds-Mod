@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "purple_diamond_horse_armor",
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "colorfuldiamondsmod:purple_diamond"
+    }
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:purple_diamond_horse_armor"
+  }
+}

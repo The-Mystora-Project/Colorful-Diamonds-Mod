@@ -1,6 +1,8 @@
 package com.github.mystery2099.colorfuldiamondsmod.item;
 
+import com.github.mystery2099.colorfuldiamondsmod.ColorfulDiamondsMod;
 import com.github.mystery2099.colorfuldiamondsmod.ModRegistrar;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ public class ModItems {
     public static final List<Supplier<Item>> TOOLS = new ArrayList<>();
     public static final List<Supplier<Item>> WEAPONS = new ArrayList<>();
     public static final List<Supplier<Item>> ARMOR = new ArrayList<>();
+    public static final List<Supplier<Item>> HORSE_ARMOR = new ArrayList<>();
 
     public static void init(ModRegistrar registrar) {
         for (var color : DyeColor.values()) {
@@ -22,6 +25,9 @@ public class ModItems {
         }
         for (var material : ModArmorMaterials.values()) {
             ARMOR.addAll(registerArmorSet(registrar, material));
+        }
+        for (var color : DyeColor.values()) {
+            HORSE_ARMOR.add(horseArmor(registrar, color));
         }
     }
 
@@ -38,6 +44,16 @@ public class ModItems {
             register(registrar, materialName+"_leggings", () -> new ArmorItem(material, ArmorItem.Type.LEGGINGS, settings)),
             register(registrar, materialName+"_boots", () -> new ArmorItem(material, ArmorItem.Type.BOOTS, settings))
         );
+    }
+
+    /**
+     * Diamond-grade horse armor for the given dye color. The armor bonus matches vanilla diamond
+     * horse armor, and the entity texture is resolved by {@link ColoredHorseArmorItem}.
+     */
+    private static Supplier<Item> horseArmor(ModRegistrar registrar, DyeColor color) {
+        var materialName = color.toString().toLowerCase() + "_diamond";
+        return register(registrar, materialName + "_horse_armor",
+                () -> new ColoredHorseArmorItem(11, materialName));
     }
 
     private static void registerToolSet(ModRegistrar registrar, Tier material) {
@@ -59,6 +75,26 @@ public class ModItems {
         return registrar.registerItem(id, item);
     }
 
+    /**
+     * Horse armor whose entity texture lives in the mod's own namespace. Vanilla resolves the
+     * texture against {@code minecraft}, so the location is rebuilt here to use the provided
+     * {@code textures/entity/horse/armor/horse_armor_<name>.png} textures.
+     */
+    private static class ColoredHorseArmorItem extends HorseArmorItem {
+        private static final String ENTITY_TEXTURE_PREFIX = "textures/entity/horse/armor/horse_armor_";
+        private final ResourceLocation texture;
+
+        ColoredHorseArmorItem(int bonus, String name) {
+            super(bonus, name, new Item.Properties().stacksTo(1));
+            this.texture = new ResourceLocation(ColorfulDiamondsMod.MOD_ID, ENTITY_TEXTURE_PREFIX + name + ".png");
+        }
+
+        @Override
+        public ResourceLocation getTexture() {
+            return this.texture;
+        }
+    }
+
     /** Gem for the given dye color. Colors match {@link DyeColor} ordinal order. */
     public static Item gem(DyeColor color) {
         return GEMS.get(color.getId()).get();
@@ -72,5 +108,10 @@ public class ModItems {
     /** Sword for the given dye color. */
     public static Item sword(DyeColor color) {
         return WEAPONS.get(color.getId()).get();
+    }
+
+    /** Horse armor for the given dye color. */
+    public static Item horseArmor(DyeColor color) {
+        return HORSE_ARMOR.get(color.getId()).get();
     }
 }

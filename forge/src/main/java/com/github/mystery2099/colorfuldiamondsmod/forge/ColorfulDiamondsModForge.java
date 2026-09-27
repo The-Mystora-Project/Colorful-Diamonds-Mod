@@ -47,6 +47,7 @@ public class ColorfulDiamondsModForge {
                 .displayItems((params, output) -> {
                     ModItems.WEAPONS.forEach(item -> output.accept(item.get()));
                     ModItems.ARMOR.forEach(item -> output.accept(item.get()));
+                    ModItems.HORSE_ARMOR.forEach(item -> output.accept(item.get()));
                 }));
     }
 

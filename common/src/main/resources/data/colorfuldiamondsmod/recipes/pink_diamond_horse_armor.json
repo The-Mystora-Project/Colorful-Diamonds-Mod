@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pink_diamond_horse_armor",
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "colorfuldiamondsmod:pink_diamond"
+    }
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:pink_diamond_horse_armor"
+  }
+}

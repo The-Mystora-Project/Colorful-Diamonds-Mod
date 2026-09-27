@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "lime_diamond_horse_armor",
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "colorfuldiamondsmod:lime_diamond"
+    }
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:lime_diamond_horse_armor"
+  }
+}

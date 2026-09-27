@@ -52,6 +52,7 @@ public final class FabricLikeRegistration {
                 .displayItems((context, entries) -> {
                     ModItems.WEAPONS.forEach(item -> entries.accept(item.get()));
                     ModItems.ARMOR.forEach(item -> entries.accept(item.get()));
+                    ModItems.HORSE_ARMOR.forEach(item -> entries.accept(item.get()));
                 }).build();
     }
 }

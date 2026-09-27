@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "colorfuldiamondsmod:white_diamond_horse_armor",
+    "colorfuldiamondsmod:orange_diamond_horse_armor",
+    "colorfuldiamondsmod:magenta_diamond_horse_armor",
+    "colorfuldiamondsmod:light_blue_diamond_horse_armor",
+    "colorfuldiamondsmod:yellow_diamond_horse_armor",
+    "colorfuldiamondsmod:lime_diamond_horse_armor",
+    "colorfuldiamondsmod:pink_diamond_horse_armor",
+    "colorfuldiamondsmod:gray_diamond_horse_armor",
+    "colorfuldiamondsmod:light_gray_diamond_horse_armor",
+    "colorfuldiamondsmod:cyan_diamond_horse_armor",
+    "colorfuldiamondsmod:purple_diamond_horse_armor",
+    "colorfuldiamondsmod:blue_diamond_horse_armor",
+    "colorfuldiamondsmod:brown_diamond_horse_armor",
+    "colorfuldiamondsmod:green_diamond_horse_armor",
+    "colorfuldiamondsmod:red_diamond_horse_armor",
+    "colorfuldiamondsmod:black_diamond_horse_armor"
+  ]
+}

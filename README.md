@@ -1,6 +1,6 @@
 # Colorful Diamonds Mod
 
-Color diamonds with any of Minecraft's 16 dyes, then use them to make matching blocks, armor, and tools. This repository contains the shared mod code and the Fabric, Forge, and Quilt versions.
+Color diamonds with any of Minecraft's 16 dyes, then use them to make matching blocks, armor, horse armor, and tools. This repository contains the shared mod code and the Fabric, Forge, and Quilt versions.
 
 ## License
 
