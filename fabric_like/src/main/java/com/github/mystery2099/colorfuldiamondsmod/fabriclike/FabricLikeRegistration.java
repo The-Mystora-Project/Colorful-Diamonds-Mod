@@ -9,6 +9,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -36,18 +37,18 @@ public final class FabricLikeRegistration {
 
         FabricItemGroup.builder(new ResourceLocation(ColorfulDiamondsMod.MOD_ID, "default"))
                 .title(Component.translatable("itemGroup.colorfuldiamondsmod.default"))
-                .icon(() -> new ItemStack(ModItems.GEMS.get(0).get()))
+                .icon(() -> new ItemStack(ModItems.gem(DyeColor.RED)))
                 .displayItems((context, entries) -> {
                     ModItems.GEMS.forEach(item -> entries.accept(item.get()));
                     ModBlocks.DIAMOND_BLOCK_ITEMS.forEach(item -> entries.accept(item.get()));
                 }).build();
         FabricItemGroup.builder(new ResourceLocation(ColorfulDiamondsMod.MOD_ID, "tools"))
                 .title(Component.translatable("itemGroup.colorfuldiamondsmod.tools"))
-                .icon(() -> new ItemStack(ModItems.TOOLS.get(0).get()))
+                .icon(() -> new ItemStack(ModItems.pickaxe(DyeColor.RED)))
                 .displayItems((context, entries) -> ModItems.TOOLS.forEach(item -> entries.accept(item.get()))).build();
         FabricItemGroup.builder(new ResourceLocation(ColorfulDiamondsMod.MOD_ID, "combat"))
                 .title(Component.translatable("itemGroup.colorfuldiamondsmod.combat"))
-                .icon(() -> new ItemStack(ModItems.WEAPONS.get(0).get()))
+                .icon(() -> new ItemStack(ModItems.sword(DyeColor.RED)))
                 .displayItems((context, entries) -> {
                     ModItems.WEAPONS.forEach(item -> entries.accept(item.get()));
                     ModItems.ARMOR.forEach(item -> entries.accept(item.get()));
