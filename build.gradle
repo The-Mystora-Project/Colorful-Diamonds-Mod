@@ -13,5 +13,10 @@ subprojects {
             options.encoding = 'UTF-8'
             options.release = 17
         }
+        tasks.withType(JavaExec).configureEach {
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+        }
     }
 }

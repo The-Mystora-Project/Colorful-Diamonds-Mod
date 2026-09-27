@@ -8,6 +8,6 @@ The original code and artwork in this repository are licensed under the [MIT Lic
 
 ## Building
 
-Use Java 17 and run `./gradlew build` from the repository root. The release JARs are written to `fabric/build/libs`, `forge/build/libs`, and `quilt/build/libs`.
+Set `JAVA_HOME` to a JDK 17 installation, then run `./gradlew build` from the repository root. To launch the Fabric development client, run `./gradlew :fabric:runClient`. The release JARs are written to `fabric/build/libs`, `forge/build/libs`, and `quilt/build/libs`.
 
 The `common` directory holds shared source and resources. Each loader project compiles them alongside its own entrypoint and handles registration with its native loader APIs. Architectury is not required to build or run the mod.
