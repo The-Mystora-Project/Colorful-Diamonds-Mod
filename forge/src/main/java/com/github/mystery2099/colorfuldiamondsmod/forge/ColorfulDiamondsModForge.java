@@ -6,6 +6,7 @@ import com.github.mystery2099.colorfuldiamondsmod.ModRegistrar;
 import com.github.mystery2099.colorfuldiamondsmod.item.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -31,18 +32,18 @@ public class ColorfulDiamondsModForge {
     private void registerTabs(CreativeModeTabEvent.Register event) {
         event.registerCreativeModeTab(new ResourceLocation(ColorfulDiamondsMod.MOD_ID, "default"), builder -> builder
                 .title(Component.translatable("itemGroup.colorfuldiamondsmod.default"))
-                .icon(() -> new ItemStack(ModItems.GEMS.get(0).get()))
+                .icon(() -> new ItemStack(ModItems.gem(DyeColor.RED)))
                 .displayItems((params, output) -> {
                     ModItems.GEMS.forEach(item -> output.accept(item.get()));
                     ModBlocks.DIAMOND_BLOCK_ITEMS.forEach(item -> output.accept(item.get()));
                 }));
         event.registerCreativeModeTab(new ResourceLocation(ColorfulDiamondsMod.MOD_ID, "tools"), builder -> builder
                 .title(Component.translatable("itemGroup.colorfuldiamondsmod.tools"))
-                .icon(() -> new ItemStack(ModItems.TOOLS.get(0).get()))
+                .icon(() -> new ItemStack(ModItems.pickaxe(DyeColor.RED)))
                 .displayItems((params, output) -> ModItems.TOOLS.forEach(item -> output.accept(item.get()))));
         event.registerCreativeModeTab(new ResourceLocation(ColorfulDiamondsMod.MOD_ID, "combat"), builder -> builder
                 .title(Component.translatable("itemGroup.colorfuldiamondsmod.combat"))
-                .icon(() -> new ItemStack(ModItems.WEAPONS.get(0).get()))
+                .icon(() -> new ItemStack(ModItems.sword(DyeColor.RED)))
                 .displayItems((params, output) -> {
                     ModItems.WEAPONS.forEach(item -> output.accept(item.get()));
                     ModItems.ARMOR.forEach(item -> output.accept(item.get()));

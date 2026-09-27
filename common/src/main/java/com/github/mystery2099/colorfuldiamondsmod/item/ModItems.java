@@ -58,4 +58,19 @@ public class ModItems {
     private static Supplier<Item> register(ModRegistrar registrar, String id, Supplier<Item> item) {
         return registrar.registerItem(id, item);
     }
+
+    /** Gem for the given dye color. Colors match {@link DyeColor} ordinal order. */
+    public static Item gem(DyeColor color) {
+        return GEMS.get(color.getId()).get();
+    }
+
+    /** Pickaxe for the given dye color (four tools per color: shovel, pickaxe, axe, hoe). */
+    public static Item pickaxe(DyeColor color) {
+        return TOOLS.get(color.getId() * 4 + 1).get();
+    }
+
+    /** Sword for the given dye color. */
+    public static Item sword(DyeColor color) {
+        return WEAPONS.get(color.getId()).get();
+    }
 }
