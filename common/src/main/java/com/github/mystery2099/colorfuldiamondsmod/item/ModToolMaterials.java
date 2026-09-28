@@ -25,6 +25,7 @@ public enum ModToolMaterials implements Tier {
     RED_DIAMOND(() -> Ingredient.of(ModItems.GEMS.get(14).get(), Items.DIAMOND)),
     BLACK_DIAMOND(() -> Ingredient.of(ModItems.GEMS.get(15).get(), Items.DIAMOND));
     private final Supplier<Ingredient> repairIngredient;
+    private Ingredient cachedRepairIngredient;
 
     ModToolMaterials(Supplier<Ingredient> repairIngredient) {
         this.repairIngredient = repairIngredient;
@@ -51,6 +52,9 @@ public enum ModToolMaterials implements Tier {
     }
 
     public Ingredient getRepairIngredient() {
-        return this.repairIngredient.get();
+        if (this.cachedRepairIngredient == null) {
+            this.cachedRepairIngredient = this.repairIngredient.get();
+        }
+        return this.cachedRepairIngredient;
     }
 }

@@ -32,6 +32,7 @@ public enum ModArmorMaterials implements ArmorMaterial  {
     private final String name;
     private final int[] protectionAmounts = new int[]{3, 6, 8, 3};
     private final Supplier<Ingredient> repairIngredientSupplier;
+    private Ingredient cachedRepairIngredient;
 
     ModArmorMaterials(String name, Supplier<Ingredient> repairIngredientSupplier) {
         this.name = name;
@@ -55,7 +56,10 @@ public enum ModArmorMaterials implements ArmorMaterial  {
     }
 
     public Ingredient getRepairIngredient() {
-        return this.repairIngredientSupplier.get();
+        if (this.cachedRepairIngredient == null) {
+            this.cachedRepairIngredient = this.repairIngredientSupplier.get();
+        }
+        return this.cachedRepairIngredient;
     }
 
     public String getName() {
