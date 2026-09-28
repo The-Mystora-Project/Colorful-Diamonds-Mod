@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#colorfuldiamondsmod:colored_diamond_chestplates",
+    "minecraft:diamond_chestplate"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "orange_diamond_horse_armor",
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "colorfuldiamondsmod:orange_diamond"
+    }
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:orange_diamond_horse_armor"
+  }
+}

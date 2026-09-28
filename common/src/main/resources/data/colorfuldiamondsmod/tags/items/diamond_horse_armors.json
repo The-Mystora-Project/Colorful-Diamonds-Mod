@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:diamond_horse_armor",
+    "#colorfuldiamondsmod:colored_diamond_horse_armors"
+  ]
+}

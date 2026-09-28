@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "colorfuldiamondsmod:item/magenta_diamond_horse_armor"
+  }
+}

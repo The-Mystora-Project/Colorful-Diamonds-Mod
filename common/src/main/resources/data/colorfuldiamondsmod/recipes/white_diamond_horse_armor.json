@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "white_diamond_horse_armor",
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "colorfuldiamondsmod:white_diamond"
+    }
+  },
+  "result": {
+    "item": "colorfuldiamondsmod:white_diamond_horse_armor"
+  }
+}
