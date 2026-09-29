@@ -23,7 +23,7 @@ public class ModBlocks {
 
     private static void register(ModRegistrar registrar, DyeColor color) {
         var id = color.toString().toLowerCase() + "_diamond_block";
-        var block = registrar.registerBlock(id, () -> new Block(BlockBehaviour.Properties.of(Material.METAL, color).requiresCorrectToolForDrops()));
+        var block = registrar.registerBlock(id, () -> new Block(BlockBehaviour.Properties.of(Material.METAL, color).strength(5.0F, 6.0F).requiresCorrectToolForDrops()));
         DIAMOND_BLOCKS.add(block);
         DIAMOND_BLOCK_ITEMS.add(registrar.registerItem(id, () -> new BlockItem(block.get(), new Item.Properties())));
     }
